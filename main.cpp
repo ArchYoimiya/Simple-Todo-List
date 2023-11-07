@@ -78,7 +78,19 @@ public:
 };
 
 int main() {
-    TodoList myTodoList("todolist.txt");
+    // Construct the path to the file in the .config folder
+    string homeDirectory = getenv("HOME");  // This gets the home directory path on Unix-like systems
+    string configDirectory = homeDirectory + "/.config/mytodolist/"; // Replace 'mytodolist' with your application's name
+    string filename = "todolist.txt";
+
+    // Full path to the to-do list file
+    string filePath = configDirectory + filename;
+
+    // Ensure the .config directory exists
+    string mkdirCommand = "mkdir -p " + configDirectory; // 'mkdir -p' will create the directory if it does not exist
+    system(mkdirCommand.c_str());
+    TodoList myTodoList(filePath);
+
     string command;
     string taskDescription;
     int taskIndex;
